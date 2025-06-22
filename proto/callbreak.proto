@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package callbreak;
+
+option go_package = "github.com/GT020/callbreak/pkg/callbreakpb";
+
+service CallbreakService {
+  rpc Register (RegisterRequest) returns (AuthResponse);
+  rpc Login (LoginRequest) returns (AuthResponse);
+  rpc CreateGame (CreateGameRequest) returns (GameResponse);
+  rpc GameStream (stream GameEvent) returns (stream ServerEvent);
+}
+
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message CreateGameRequest {
+  string game_id = 1;
+  string jwt_token = 2;
+}
+
+message AuthResponse {
+  string jwt_token = 1;
+  string message = 2;
+}
+
+message GameResponse {
+  string message = 1;
+}
+
+message GameEvent {
+  string jwt_token = 1;
+  string game_id = 2;
+  oneof payload {
+    Join join = 3;
+    Play play = 4;
+  }
+}
+
+message Join {
+  string username = 1;
+}
+
+message Play {
+  string card = 1;
+}
+
+message ServerEvent {
+  string type = 1; 
+  string payload = 2;
+}

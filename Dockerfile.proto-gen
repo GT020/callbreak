@@ -1,0 +1,41 @@
+FROM dart:stable
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl git unzip build-essential protobuf-compiler \
+    nodejs npm && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# ----------------------
+# Install Go 1.22 manually
+# ----------------------
+ENV GO_VERSION=1.22.4
+RUN curl -OL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" && \
+    tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz" && \
+    rm "go${GO_VERSION}.linux-amd64.tar.gz"
+ENV PATH="/usr/local/go/bin:$PATH"
+ENV GOPATH="/go"
+ENV PATH="$GOPATH/bin:$PATH"
+
+# ----------------------
+# Dart pub cache and plugin setup
+# ----------------------
+ENV PUB_CACHE="/root/.pub-cache"
+ENV PATH="$PUB_CACHE/bin:$PATH"
+
+RUN dart pub global activate protoc_plugin
+
+# ----------------------
+# Install Go protoc plugins (requires Go 1.22+)
+# ----------------------
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest && \
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+# ----------------------
+# Install JS and grpc-web plugins
+# ----------------------
+RUN npm install -g protoc-gen-grpc-web google-protobuf grpc-web protoc-gen-js
+ENV PATH="/usr/local/bin:$PATH"
+
+# Verify installations
+RUN dart --version && go version && protoc-gen-go --version
