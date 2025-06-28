@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package callbreak;
 
-option go_package = "github.com/GT020/callbreak/pkg/callbreakpb";
+option go_package = "callbreak/v1/callbreakpb";
 
 service CallbreakService {
   rpc Register (RegisterRequest) returns (AuthResponse);

@@ -549,7 +549,7 @@ const file_callbreak_proto_rawDesc = "" +
 	"\n" +
 	"CreateGame\x12\x1c.callbreak.CreateGameRequest\x1a\x17.callbreak.GameResponse\x12>\n" +
 	"\n" +
-	"GameStream\x12\x14.callbreak.GameEvent\x1a\x16.callbreak.ServerEvent(\x010\x01B,Z*github.com/GT020/callbreak/pkg/callbreakpbb\x06proto3"
+	"GameStream\x12\x14.callbreak.GameEvent\x1a\x16.callbreak.ServerEvent(\x010\x01B\x1aZ\x18callbreak/v1/callbreakpbb\x06proto3"
 
 var (
 	file_callbreak_proto_rawDescOnce sync.Once
