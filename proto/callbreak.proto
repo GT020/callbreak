@@ -7,10 +7,13 @@ option go_package = "callbreak/v1/callbreakpb";
 service CallbreakService {
   rpc Register (RegisterRequest) returns (AuthResponse);
   rpc Login (LoginRequest) returns (AuthResponse);
-  rpc CreateGame (CreateGameRequest) returns (GameResponse);
-  rpc GameStream (stream GameEvent) returns (stream ServerEvent);
+  rpc CreateGame (CreateGameRequest) returns (GameResponse);  
+  rpc GameStream (stream GameEvent) returns (stream ServerEvent); // gRPC clients
+  rpc SendEvent (GameEvent) returns (Ack);                         // web-safe
+  rpc ReceiveEvents (SubscribeRequest) returns (stream ServerEvent); // web-safe
 }
 
+// === Messages ===
 message RegisterRequest {
   string username = 1;
   string password = 2;
@@ -23,24 +26,29 @@ message LoginRequest {
 
 message CreateGameRequest {
   string game_id = 1;
-  string jwt_token = 2;
-}
-
-message AuthResponse {
-  string jwt_token = 1;
-  string message = 2;
 }
 
 message GameResponse {
   string message = 1;
 }
 
+message AuthResponse {
+  string message = 1;
+}
+
+message Ack {
+  string message = 1;
+}
+
+message SubscribeRequest {
+  string game_id = 1;
+}
+
 message GameEvent {
-  string jwt_token = 1;
-  string game_id = 2;
+  string game_id = 1;
   oneof payload {
-    Join join = 3;
-    Play play = 4;
+    Join join = 2;
+    Play play = 3;
   }
 }
 
@@ -53,6 +61,6 @@ message Play {
 }
 
 message ServerEvent {
-  string type = 1; 
+  string type = 1;
   string payload = 2;
 }

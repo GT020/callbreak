@@ -16,6 +16,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
+/// === Messages ===
 class RegisterRequest extends $pb.GeneratedMessage {
   factory RegisterRequest({
     $core.String? username,
@@ -135,11 +136,9 @@ class LoginRequest extends $pb.GeneratedMessage {
 class CreateGameRequest extends $pb.GeneratedMessage {
   factory CreateGameRequest({
     $core.String? gameId,
-    $core.String? jwtToken,
   }) {
     final result = create();
     if (gameId != null) result.gameId = gameId;
-    if (jwtToken != null) result.jwtToken = jwtToken;
     return result;
   }
 
@@ -150,7 +149,6 @@ class CreateGameRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateGameRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'callbreak'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'gameId')
-    ..aOS(2, _omitFieldNames ? '' : 'jwtToken')
     ..hasRequiredFields = false
   ;
 
@@ -179,73 +177,6 @@ class CreateGameRequest extends $pb.GeneratedMessage {
   $core.bool hasGameId() => $_has(0);
   @$pb.TagNumber(1)
   void clearGameId() => $_clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get jwtToken => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set jwtToken($core.String value) => $_setString(1, value);
-  @$pb.TagNumber(2)
-  $core.bool hasJwtToken() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearJwtToken() => $_clearField(2);
-}
-
-class AuthResponse extends $pb.GeneratedMessage {
-  factory AuthResponse({
-    $core.String? jwtToken,
-    $core.String? message,
-  }) {
-    final result = create();
-    if (jwtToken != null) result.jwtToken = jwtToken;
-    if (message != null) result.message = message;
-    return result;
-  }
-
-  AuthResponse._();
-
-  factory AuthResponse.fromBuffer($core.List<$core.int> data, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(data, registry);
-  factory AuthResponse.fromJson($core.String json, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(json, registry);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AuthResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'callbreak'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'jwtToken')
-    ..aOS(2, _omitFieldNames ? '' : 'message')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  AuthResponse clone() => AuthResponse()..mergeFromMessage(this);
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  AuthResponse copyWith(void Function(AuthResponse) updates) => super.copyWith((message) => updates(message as AuthResponse)) as AuthResponse;
-
-  @$core.override
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static AuthResponse create() => AuthResponse._();
-  @$core.override
-  AuthResponse createEmptyInstance() => create();
-  static $pb.PbList<AuthResponse> createRepeated() => $pb.PbList<AuthResponse>();
-  @$core.pragma('dart2js:noInline')
-  static AuthResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AuthResponse>(create);
-  static AuthResponse? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get jwtToken => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set jwtToken($core.String value) => $_setString(0, value);
-  @$pb.TagNumber(1)
-  $core.bool hasJwtToken() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearJwtToken() => $_clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get message => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set message($core.String value) => $_setString(1, value);
-  @$pb.TagNumber(2)
-  $core.bool hasMessage() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearMessage() => $_clearField(2);
 }
 
 class GameResponse extends $pb.GeneratedMessage {
@@ -294,6 +225,144 @@ class GameResponse extends $pb.GeneratedMessage {
   void clearMessage() => $_clearField(1);
 }
 
+class AuthResponse extends $pb.GeneratedMessage {
+  factory AuthResponse({
+    $core.String? message,
+  }) {
+    final result = create();
+    if (message != null) result.message = message;
+    return result;
+  }
+
+  AuthResponse._();
+
+  factory AuthResponse.fromBuffer($core.List<$core.int> data, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(data, registry);
+  factory AuthResponse.fromJson($core.String json, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AuthResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'callbreak'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'message')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AuthResponse clone() => AuthResponse()..mergeFromMessage(this);
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AuthResponse copyWith(void Function(AuthResponse) updates) => super.copyWith((message) => updates(message as AuthResponse)) as AuthResponse;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AuthResponse create() => AuthResponse._();
+  @$core.override
+  AuthResponse createEmptyInstance() => create();
+  static $pb.PbList<AuthResponse> createRepeated() => $pb.PbList<AuthResponse>();
+  @$core.pragma('dart2js:noInline')
+  static AuthResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AuthResponse>(create);
+  static AuthResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get message => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set message($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessage() => $_clearField(1);
+}
+
+class Ack extends $pb.GeneratedMessage {
+  factory Ack({
+    $core.String? message,
+  }) {
+    final result = create();
+    if (message != null) result.message = message;
+    return result;
+  }
+
+  Ack._();
+
+  factory Ack.fromBuffer($core.List<$core.int> data, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(data, registry);
+  factory Ack.fromJson($core.String json, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Ack', package: const $pb.PackageName(_omitMessageNames ? '' : 'callbreak'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'message')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Ack clone() => Ack()..mergeFromMessage(this);
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Ack copyWith(void Function(Ack) updates) => super.copyWith((message) => updates(message as Ack)) as Ack;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Ack create() => Ack._();
+  @$core.override
+  Ack createEmptyInstance() => create();
+  static $pb.PbList<Ack> createRepeated() => $pb.PbList<Ack>();
+  @$core.pragma('dart2js:noInline')
+  static Ack getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Ack>(create);
+  static Ack? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get message => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set message($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessage() => $_clearField(1);
+}
+
+class SubscribeRequest extends $pb.GeneratedMessage {
+  factory SubscribeRequest({
+    $core.String? gameId,
+  }) {
+    final result = create();
+    if (gameId != null) result.gameId = gameId;
+    return result;
+  }
+
+  SubscribeRequest._();
+
+  factory SubscribeRequest.fromBuffer($core.List<$core.int> data, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(data, registry);
+  factory SubscribeRequest.fromJson($core.String json, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SubscribeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'callbreak'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'gameId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SubscribeRequest clone() => SubscribeRequest()..mergeFromMessage(this);
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SubscribeRequest copyWith(void Function(SubscribeRequest) updates) => super.copyWith((message) => updates(message as SubscribeRequest)) as SubscribeRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static SubscribeRequest create() => SubscribeRequest._();
+  @$core.override
+  SubscribeRequest createEmptyInstance() => create();
+  static $pb.PbList<SubscribeRequest> createRepeated() => $pb.PbList<SubscribeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static SubscribeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SubscribeRequest>(create);
+  static SubscribeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get gameId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set gameId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasGameId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearGameId() => $_clearField(1);
+}
+
 enum GameEvent_Payload {
   join, 
   play, 
@@ -302,13 +371,11 @@ enum GameEvent_Payload {
 
 class GameEvent extends $pb.GeneratedMessage {
   factory GameEvent({
-    $core.String? jwtToken,
     $core.String? gameId,
     Join? join,
     Play? play,
   }) {
     final result = create();
-    if (jwtToken != null) result.jwtToken = jwtToken;
     if (gameId != null) result.gameId = gameId;
     if (join != null) result.join = join;
     if (play != null) result.play = play;
@@ -321,16 +388,15 @@ class GameEvent extends $pb.GeneratedMessage {
   factory GameEvent.fromJson($core.String json, [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(json, registry);
 
   static const $core.Map<$core.int, GameEvent_Payload> _GameEvent_PayloadByTag = {
-    3 : GameEvent_Payload.join,
-    4 : GameEvent_Payload.play,
+    2 : GameEvent_Payload.join,
+    3 : GameEvent_Payload.play,
     0 : GameEvent_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GameEvent', package: const $pb.PackageName(_omitMessageNames ? '' : 'callbreak'), createEmptyInstance: create)
-    ..oo(0, [3, 4])
-    ..aOS(1, _omitFieldNames ? '' : 'jwtToken')
-    ..aOS(2, _omitFieldNames ? '' : 'gameId')
-    ..aOM<Join>(3, _omitFieldNames ? '' : 'join', subBuilder: Join.create)
-    ..aOM<Play>(4, _omitFieldNames ? '' : 'play', subBuilder: Play.create)
+    ..oo(0, [2, 3])
+    ..aOS(1, _omitFieldNames ? '' : 'gameId')
+    ..aOM<Join>(2, _omitFieldNames ? '' : 'join', subBuilder: Join.create)
+    ..aOM<Play>(3, _omitFieldNames ? '' : 'play', subBuilder: Play.create)
     ..hasRequiredFields = false
   ;
 
@@ -355,44 +421,35 @@ class GameEvent extends $pb.GeneratedMessage {
   void clearPayload() => $_clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
-  $core.String get jwtToken => $_getSZ(0);
+  $core.String get gameId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set jwtToken($core.String value) => $_setString(0, value);
+  set gameId($core.String value) => $_setString(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasJwtToken() => $_has(0);
+  $core.bool hasGameId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearJwtToken() => $_clearField(1);
+  void clearGameId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get gameId => $_getSZ(1);
+  Join get join => $_getN(1);
   @$pb.TagNumber(2)
-  set gameId($core.String value) => $_setString(1, value);
+  set join(Join value) => $_setField(2, value);
   @$pb.TagNumber(2)
-  $core.bool hasGameId() => $_has(1);
+  $core.bool hasJoin() => $_has(1);
   @$pb.TagNumber(2)
-  void clearGameId() => $_clearField(2);
+  void clearJoin() => $_clearField(2);
+  @$pb.TagNumber(2)
+  Join ensureJoin() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  Join get join => $_getN(2);
+  Play get play => $_getN(2);
   @$pb.TagNumber(3)
-  set join(Join value) => $_setField(3, value);
+  set play(Play value) => $_setField(3, value);
   @$pb.TagNumber(3)
-  $core.bool hasJoin() => $_has(2);
+  $core.bool hasPlay() => $_has(2);
   @$pb.TagNumber(3)
-  void clearJoin() => $_clearField(3);
+  void clearPlay() => $_clearField(3);
   @$pb.TagNumber(3)
-  Join ensureJoin() => $_ensure(2);
-
-  @$pb.TagNumber(4)
-  Play get play => $_getN(3);
-  @$pb.TagNumber(4)
-  set play(Play value) => $_setField(4, value);
-  @$pb.TagNumber(4)
-  $core.bool hasPlay() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearPlay() => $_clearField(4);
-  @$pb.TagNumber(4)
-  Play ensurePlay() => $_ensure(3);
+  Play ensurePlay() => $_ensure(2);
 }
 
 class Join extends $pb.GeneratedMessage {

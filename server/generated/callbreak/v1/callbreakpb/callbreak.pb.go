@@ -21,6 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// === Messages ===
 type RegisterRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
@@ -128,7 +129,6 @@ func (x *LoginRequest) GetPassword() string {
 type CreateGameRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	GameId        string                 `protobuf:"bytes,1,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
-	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -170,65 +170,6 @@ func (x *CreateGameRequest) GetGameId() string {
 	return ""
 }
 
-func (x *CreateGameRequest) GetJwtToken() string {
-	if x != nil {
-		return x.JwtToken
-	}
-	return ""
-}
-
-type AuthResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	JwtToken      string                 `protobuf:"bytes,1,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
-	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AuthResponse) Reset() {
-	*x = AuthResponse{}
-	mi := &file_callbreak_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AuthResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AuthResponse) ProtoMessage() {}
-
-func (x *AuthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_callbreak_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AuthResponse.ProtoReflect.Descriptor instead.
-func (*AuthResponse) Descriptor() ([]byte, []int) {
-	return file_callbreak_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *AuthResponse) GetJwtToken() string {
-	if x != nil {
-		return x.JwtToken
-	}
-	return ""
-}
-
-func (x *AuthResponse) GetMessage() string {
-	if x != nil {
-		return x.Message
-	}
-	return ""
-}
-
 type GameResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
@@ -238,7 +179,7 @@ type GameResponse struct {
 
 func (x *GameResponse) Reset() {
 	*x = GameResponse{}
-	mi := &file_callbreak_proto_msgTypes[4]
+	mi := &file_callbreak_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -250,7 +191,7 @@ func (x *GameResponse) String() string {
 func (*GameResponse) ProtoMessage() {}
 
 func (x *GameResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_callbreak_proto_msgTypes[4]
+	mi := &file_callbreak_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -263,7 +204,7 @@ func (x *GameResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameResponse.ProtoReflect.Descriptor instead.
 func (*GameResponse) Descriptor() ([]byte, []int) {
-	return file_callbreak_proto_rawDescGZIP(), []int{4}
+	return file_callbreak_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GameResponse) GetMessage() string {
@@ -273,10 +214,141 @@ func (x *GameResponse) GetMessage() string {
 	return ""
 }
 
+type AuthResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AuthResponse) Reset() {
+	*x = AuthResponse{}
+	mi := &file_callbreak_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AuthResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AuthResponse) ProtoMessage() {}
+
+func (x *AuthResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_callbreak_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AuthResponse.ProtoReflect.Descriptor instead.
+func (*AuthResponse) Descriptor() ([]byte, []int) {
+	return file_callbreak_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *AuthResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type Ack struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Ack) Reset() {
+	*x = Ack{}
+	mi := &file_callbreak_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Ack) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Ack) ProtoMessage() {}
+
+func (x *Ack) ProtoReflect() protoreflect.Message {
+	mi := &file_callbreak_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Ack.ProtoReflect.Descriptor instead.
+func (*Ack) Descriptor() ([]byte, []int) {
+	return file_callbreak_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *Ack) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type SubscribeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	GameId        string                 `protobuf:"bytes,1,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubscribeRequest) Reset() {
+	*x = SubscribeRequest{}
+	mi := &file_callbreak_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeRequest) ProtoMessage() {}
+
+func (x *SubscribeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_callbreak_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeRequest.ProtoReflect.Descriptor instead.
+func (*SubscribeRequest) Descriptor() ([]byte, []int) {
+	return file_callbreak_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *SubscribeRequest) GetGameId() string {
+	if x != nil {
+		return x.GameId
+	}
+	return ""
+}
+
 type GameEvent struct {
-	state    protoimpl.MessageState `protogen:"open.v1"`
-	JwtToken string                 `protobuf:"bytes,1,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
-	GameId   string                 `protobuf:"bytes,2,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	state  protoimpl.MessageState `protogen:"open.v1"`
+	GameId string                 `protobuf:"bytes,1,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
 	// Types that are valid to be assigned to Payload:
 	//
 	//	*GameEvent_Join
@@ -288,7 +360,7 @@ type GameEvent struct {
 
 func (x *GameEvent) Reset() {
 	*x = GameEvent{}
-	mi := &file_callbreak_proto_msgTypes[5]
+	mi := &file_callbreak_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -300,7 +372,7 @@ func (x *GameEvent) String() string {
 func (*GameEvent) ProtoMessage() {}
 
 func (x *GameEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_callbreak_proto_msgTypes[5]
+	mi := &file_callbreak_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -313,14 +385,7 @@ func (x *GameEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameEvent.ProtoReflect.Descriptor instead.
 func (*GameEvent) Descriptor() ([]byte, []int) {
-	return file_callbreak_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *GameEvent) GetJwtToken() string {
-	if x != nil {
-		return x.JwtToken
-	}
-	return ""
+	return file_callbreak_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GameEvent) GetGameId() string {
@@ -360,11 +425,11 @@ type isGameEvent_Payload interface {
 }
 
 type GameEvent_Join struct {
-	Join *Join `protobuf:"bytes,3,opt,name=join,proto3,oneof"`
+	Join *Join `protobuf:"bytes,2,opt,name=join,proto3,oneof"`
 }
 
 type GameEvent_Play struct {
-	Play *Play `protobuf:"bytes,4,opt,name=play,proto3,oneof"`
+	Play *Play `protobuf:"bytes,3,opt,name=play,proto3,oneof"`
 }
 
 func (*GameEvent_Join) isGameEvent_Payload() {}
@@ -380,7 +445,7 @@ type Join struct {
 
 func (x *Join) Reset() {
 	*x = Join{}
-	mi := &file_callbreak_proto_msgTypes[6]
+	mi := &file_callbreak_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -392,7 +457,7 @@ func (x *Join) String() string {
 func (*Join) ProtoMessage() {}
 
 func (x *Join) ProtoReflect() protoreflect.Message {
-	mi := &file_callbreak_proto_msgTypes[6]
+	mi := &file_callbreak_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -405,7 +470,7 @@ func (x *Join) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Join.ProtoReflect.Descriptor instead.
 func (*Join) Descriptor() ([]byte, []int) {
-	return file_callbreak_proto_rawDescGZIP(), []int{6}
+	return file_callbreak_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Join) GetUsername() string {
@@ -424,7 +489,7 @@ type Play struct {
 
 func (x *Play) Reset() {
 	*x = Play{}
-	mi := &file_callbreak_proto_msgTypes[7]
+	mi := &file_callbreak_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -436,7 +501,7 @@ func (x *Play) String() string {
 func (*Play) ProtoMessage() {}
 
 func (x *Play) ProtoReflect() protoreflect.Message {
-	mi := &file_callbreak_proto_msgTypes[7]
+	mi := &file_callbreak_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -449,7 +514,7 @@ func (x *Play) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Play.ProtoReflect.Descriptor instead.
 func (*Play) Descriptor() ([]byte, []int) {
-	return file_callbreak_proto_rawDescGZIP(), []int{7}
+	return file_callbreak_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *Play) GetCard() string {
@@ -469,7 +534,7 @@ type ServerEvent struct {
 
 func (x *ServerEvent) Reset() {
 	*x = ServerEvent{}
-	mi := &file_callbreak_proto_msgTypes[8]
+	mi := &file_callbreak_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -481,7 +546,7 @@ func (x *ServerEvent) String() string {
 func (*ServerEvent) ProtoMessage() {}
 
 func (x *ServerEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_callbreak_proto_msgTypes[8]
+	mi := &file_callbreak_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -494,7 +559,7 @@ func (x *ServerEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServerEvent.ProtoReflect.Descriptor instead.
 func (*ServerEvent) Descriptor() ([]byte, []int) {
-	return file_callbreak_proto_rawDescGZIP(), []int{8}
+	return file_callbreak_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ServerEvent) GetType() string {
@@ -521,20 +586,21 @@ const file_callbreak_proto_rawDesc = "" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"F\n" +
 	"\fLoginRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"I\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\",\n" +
 	"\x11CreateGameRequest\x12\x17\n" +
-	"\agame_id\x18\x01 \x01(\tR\x06gameId\x12\x1b\n" +
-	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"E\n" +
-	"\fAuthResponse\x12\x1b\n" +
-	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\"(\n" +
+	"\agame_id\x18\x01 \x01(\tR\x06gameId\"(\n" +
 	"\fGameResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"\x9a\x01\n" +
-	"\tGameEvent\x12\x1b\n" +
-	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12\x17\n" +
-	"\agame_id\x18\x02 \x01(\tR\x06gameId\x12%\n" +
-	"\x04join\x18\x03 \x01(\v2\x0f.callbreak.JoinH\x00R\x04join\x12%\n" +
-	"\x04play\x18\x04 \x01(\v2\x0f.callbreak.PlayH\x00R\x04playB\t\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"(\n" +
+	"\fAuthResponse\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"\x1f\n" +
+	"\x03Ack\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"+\n" +
+	"\x10SubscribeRequest\x12\x17\n" +
+	"\agame_id\x18\x01 \x01(\tR\x06gameId\"}\n" +
+	"\tGameEvent\x12\x17\n" +
+	"\agame_id\x18\x01 \x01(\tR\x06gameId\x12%\n" +
+	"\x04join\x18\x02 \x01(\v2\x0f.callbreak.JoinH\x00R\x04join\x12%\n" +
+	"\x04play\x18\x03 \x01(\v2\x0f.callbreak.PlayH\x00R\x04playB\t\n" +
 	"\apayload\"\"\n" +
 	"\x04Join\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\"\x1a\n" +
@@ -542,14 +608,16 @@ const file_callbreak_proto_rawDesc = "" +
 	"\x04card\x18\x01 \x01(\tR\x04card\";\n" +
 	"\vServerEvent\x12\x12\n" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x18\n" +
-	"\apayload\x18\x02 \x01(\tR\apayload2\x93\x02\n" +
+	"\apayload\x18\x02 \x01(\tR\apayload2\x8e\x03\n" +
 	"\x10CallbreakService\x12?\n" +
 	"\bRegister\x12\x1a.callbreak.RegisterRequest\x1a\x17.callbreak.AuthResponse\x129\n" +
 	"\x05Login\x12\x17.callbreak.LoginRequest\x1a\x17.callbreak.AuthResponse\x12C\n" +
 	"\n" +
 	"CreateGame\x12\x1c.callbreak.CreateGameRequest\x1a\x17.callbreak.GameResponse\x12>\n" +
 	"\n" +
-	"GameStream\x12\x14.callbreak.GameEvent\x1a\x16.callbreak.ServerEvent(\x010\x01B\x1aZ\x18callbreak/v1/callbreakpbb\x06proto3"
+	"GameStream\x12\x14.callbreak.GameEvent\x1a\x16.callbreak.ServerEvent(\x010\x01\x121\n" +
+	"\tSendEvent\x12\x14.callbreak.GameEvent\x1a\x0e.callbreak.Ack\x12F\n" +
+	"\rReceiveEvents\x12\x1b.callbreak.SubscribeRequest\x1a\x16.callbreak.ServerEvent0\x01B\x1aZ\x18callbreak/v1/callbreakpbb\x06proto3"
 
 var (
 	file_callbreak_proto_rawDescOnce sync.Once
@@ -563,34 +631,40 @@ func file_callbreak_proto_rawDescGZIP() []byte {
 	return file_callbreak_proto_rawDescData
 }
 
-var file_callbreak_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_callbreak_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_callbreak_proto_goTypes = []any{
 	(*RegisterRequest)(nil),   // 0: callbreak.RegisterRequest
 	(*LoginRequest)(nil),      // 1: callbreak.LoginRequest
 	(*CreateGameRequest)(nil), // 2: callbreak.CreateGameRequest
-	(*AuthResponse)(nil),      // 3: callbreak.AuthResponse
-	(*GameResponse)(nil),      // 4: callbreak.GameResponse
-	(*GameEvent)(nil),         // 5: callbreak.GameEvent
-	(*Join)(nil),              // 6: callbreak.Join
-	(*Play)(nil),              // 7: callbreak.Play
-	(*ServerEvent)(nil),       // 8: callbreak.ServerEvent
+	(*GameResponse)(nil),      // 3: callbreak.GameResponse
+	(*AuthResponse)(nil),      // 4: callbreak.AuthResponse
+	(*Ack)(nil),               // 5: callbreak.Ack
+	(*SubscribeRequest)(nil),  // 6: callbreak.SubscribeRequest
+	(*GameEvent)(nil),         // 7: callbreak.GameEvent
+	(*Join)(nil),              // 8: callbreak.Join
+	(*Play)(nil),              // 9: callbreak.Play
+	(*ServerEvent)(nil),       // 10: callbreak.ServerEvent
 }
 var file_callbreak_proto_depIdxs = []int32{
-	6, // 0: callbreak.GameEvent.join:type_name -> callbreak.Join
-	7, // 1: callbreak.GameEvent.play:type_name -> callbreak.Play
-	0, // 2: callbreak.CallbreakService.Register:input_type -> callbreak.RegisterRequest
-	1, // 3: callbreak.CallbreakService.Login:input_type -> callbreak.LoginRequest
-	2, // 4: callbreak.CallbreakService.CreateGame:input_type -> callbreak.CreateGameRequest
-	5, // 5: callbreak.CallbreakService.GameStream:input_type -> callbreak.GameEvent
-	3, // 6: callbreak.CallbreakService.Register:output_type -> callbreak.AuthResponse
-	3, // 7: callbreak.CallbreakService.Login:output_type -> callbreak.AuthResponse
-	4, // 8: callbreak.CallbreakService.CreateGame:output_type -> callbreak.GameResponse
-	8, // 9: callbreak.CallbreakService.GameStream:output_type -> callbreak.ServerEvent
-	6, // [6:10] is the sub-list for method output_type
-	2, // [2:6] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	8,  // 0: callbreak.GameEvent.join:type_name -> callbreak.Join
+	9,  // 1: callbreak.GameEvent.play:type_name -> callbreak.Play
+	0,  // 2: callbreak.CallbreakService.Register:input_type -> callbreak.RegisterRequest
+	1,  // 3: callbreak.CallbreakService.Login:input_type -> callbreak.LoginRequest
+	2,  // 4: callbreak.CallbreakService.CreateGame:input_type -> callbreak.CreateGameRequest
+	7,  // 5: callbreak.CallbreakService.GameStream:input_type -> callbreak.GameEvent
+	7,  // 6: callbreak.CallbreakService.SendEvent:input_type -> callbreak.GameEvent
+	6,  // 7: callbreak.CallbreakService.ReceiveEvents:input_type -> callbreak.SubscribeRequest
+	4,  // 8: callbreak.CallbreakService.Register:output_type -> callbreak.AuthResponse
+	4,  // 9: callbreak.CallbreakService.Login:output_type -> callbreak.AuthResponse
+	3,  // 10: callbreak.CallbreakService.CreateGame:output_type -> callbreak.GameResponse
+	10, // 11: callbreak.CallbreakService.GameStream:output_type -> callbreak.ServerEvent
+	5,  // 12: callbreak.CallbreakService.SendEvent:output_type -> callbreak.Ack
+	10, // 13: callbreak.CallbreakService.ReceiveEvents:output_type -> callbreak.ServerEvent
+	8,  // [8:14] is the sub-list for method output_type
+	2,  // [2:8] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_callbreak_proto_init() }
@@ -598,7 +672,7 @@ func file_callbreak_proto_init() {
 	if File_callbreak_proto != nil {
 		return
 	}
-	file_callbreak_proto_msgTypes[5].OneofWrappers = []any{
+	file_callbreak_proto_msgTypes[7].OneofWrappers = []any{
 		(*GameEvent_Join)(nil),
 		(*GameEvent_Play)(nil),
 	}
@@ -608,7 +682,7 @@ func file_callbreak_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_callbreak_proto_rawDesc), len(file_callbreak_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

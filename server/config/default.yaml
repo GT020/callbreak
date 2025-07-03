@@ -1,0 +1,12 @@
+db:
+  driver: sqlite
+  host: localhost
+  port: 5432
+  user: postgres
+  password: secret
+  name: testdb
+  sslmode: disable
+  dsn: "./tmp/callbreak.db"
+
+grpc:
+  port: 50051

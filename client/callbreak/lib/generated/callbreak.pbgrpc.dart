@@ -46,6 +46,14 @@ class CallbreakServiceClient extends $grpc.Client {
       '/callbreak.CallbreakService/GameStream',
       ($0.GameEvent value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.ServerEvent.fromBuffer(value));
+  static final _$sendEvent = $grpc.ClientMethod<$0.GameEvent, $0.Ack>(
+      '/callbreak.CallbreakService/SendEvent',
+      ($0.GameEvent value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Ack.fromBuffer(value));
+  static final _$receiveEvents = $grpc.ClientMethod<$0.SubscribeRequest, $0.ServerEvent>(
+      '/callbreak.CallbreakService/ReceiveEvents',
+      ($0.SubscribeRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ServerEvent.fromBuffer(value));
 
   CallbreakServiceClient(super.channel, {super.options, super.interceptors});
 
@@ -63,6 +71,14 @@ class CallbreakServiceClient extends $grpc.Client {
 
   $grpc.ResponseStream<$0.ServerEvent> gameStream($async.Stream<$0.GameEvent> request, {$grpc.CallOptions? options}) {
     return $createStreamingCall(_$gameStream, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Ack> sendEvent($0.GameEvent request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$sendEvent, request, options: options);
+  }
+
+  $grpc.ResponseStream<$0.ServerEvent> receiveEvents($0.SubscribeRequest request, {$grpc.CallOptions? options}) {
+    return $createStreamingCall(_$receiveEvents, $async.Stream.fromIterable([request]), options: options);
   }
 }
 
@@ -99,6 +115,20 @@ abstract class CallbreakServiceBase extends $grpc.Service {
         true,
         ($core.List<$core.int> value) => $0.GameEvent.fromBuffer(value),
         ($0.ServerEvent value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GameEvent, $0.Ack>(
+        'SendEvent',
+        sendEvent_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GameEvent.fromBuffer(value),
+        ($0.Ack value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SubscribeRequest, $0.ServerEvent>(
+        'ReceiveEvents',
+        receiveEvents_Pre,
+        false,
+        true,
+        ($core.List<$core.int> value) => $0.SubscribeRequest.fromBuffer(value),
+        ($0.ServerEvent value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.AuthResponse> register_Pre($grpc.ServiceCall $call, $async.Future<$0.RegisterRequest> $request) async {
@@ -113,8 +143,18 @@ abstract class CallbreakServiceBase extends $grpc.Service {
     return createGame($call, await $request);
   }
 
+  $async.Future<$0.Ack> sendEvent_Pre($grpc.ServiceCall $call, $async.Future<$0.GameEvent> $request) async {
+    return sendEvent($call, await $request);
+  }
+
+  $async.Stream<$0.ServerEvent> receiveEvents_Pre($grpc.ServiceCall $call, $async.Future<$0.SubscribeRequest> $request) async* {
+    yield* receiveEvents($call, await $request);
+  }
+
   $async.Future<$0.AuthResponse> register($grpc.ServiceCall call, $0.RegisterRequest request);
   $async.Future<$0.AuthResponse> login($grpc.ServiceCall call, $0.LoginRequest request);
   $async.Future<$0.GameResponse> createGame($grpc.ServiceCall call, $0.CreateGameRequest request);
   $async.Stream<$0.ServerEvent> gameStream($grpc.ServiceCall call, $async.Stream<$0.GameEvent> request);
+  $async.Future<$0.Ack> sendEvent($grpc.ServiceCall call, $0.GameEvent request);
+  $async.Stream<$0.ServerEvent> receiveEvents($grpc.ServiceCall call, $0.SubscribeRequest request);
 }

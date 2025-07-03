@@ -19,10 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CallbreakService_Register_FullMethodName   = "/callbreak.CallbreakService/Register"
-	CallbreakService_Login_FullMethodName      = "/callbreak.CallbreakService/Login"
-	CallbreakService_CreateGame_FullMethodName = "/callbreak.CallbreakService/CreateGame"
-	CallbreakService_GameStream_FullMethodName = "/callbreak.CallbreakService/GameStream"
+	CallbreakService_Register_FullMethodName      = "/callbreak.CallbreakService/Register"
+	CallbreakService_Login_FullMethodName         = "/callbreak.CallbreakService/Login"
+	CallbreakService_CreateGame_FullMethodName    = "/callbreak.CallbreakService/CreateGame"
+	CallbreakService_GameStream_FullMethodName    = "/callbreak.CallbreakService/GameStream"
+	CallbreakService_SendEvent_FullMethodName     = "/callbreak.CallbreakService/SendEvent"
+	CallbreakService_ReceiveEvents_FullMethodName = "/callbreak.CallbreakService/ReceiveEvents"
 )
 
 // CallbreakServiceClient is the client API for CallbreakService service.
@@ -33,6 +35,8 @@ type CallbreakServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthResponse, error)
 	CreateGame(ctx context.Context, in *CreateGameRequest, opts ...grpc.CallOption) (*GameResponse, error)
 	GameStream(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[GameEvent, ServerEvent], error)
+	SendEvent(ctx context.Context, in *GameEvent, opts ...grpc.CallOption) (*Ack, error)
+	ReceiveEvents(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ServerEvent], error)
 }
 
 type callbreakServiceClient struct {
@@ -86,6 +90,35 @@ func (c *callbreakServiceClient) GameStream(ctx context.Context, opts ...grpc.Ca
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type CallbreakService_GameStreamClient = grpc.BidiStreamingClient[GameEvent, ServerEvent]
 
+func (c *callbreakServiceClient) SendEvent(ctx context.Context, in *GameEvent, opts ...grpc.CallOption) (*Ack, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Ack)
+	err := c.cc.Invoke(ctx, CallbreakService_SendEvent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *callbreakServiceClient) ReceiveEvents(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ServerEvent], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &CallbreakService_ServiceDesc.Streams[1], CallbreakService_ReceiveEvents_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[SubscribeRequest, ServerEvent]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type CallbreakService_ReceiveEventsClient = grpc.ServerStreamingClient[ServerEvent]
+
 // CallbreakServiceServer is the server API for CallbreakService service.
 // All implementations must embed UnimplementedCallbreakServiceServer
 // for forward compatibility.
@@ -94,6 +127,8 @@ type CallbreakServiceServer interface {
 	Login(context.Context, *LoginRequest) (*AuthResponse, error)
 	CreateGame(context.Context, *CreateGameRequest) (*GameResponse, error)
 	GameStream(grpc.BidiStreamingServer[GameEvent, ServerEvent]) error
+	SendEvent(context.Context, *GameEvent) (*Ack, error)
+	ReceiveEvents(*SubscribeRequest, grpc.ServerStreamingServer[ServerEvent]) error
 	mustEmbedUnimplementedCallbreakServiceServer()
 }
 
@@ -115,6 +150,12 @@ func (UnimplementedCallbreakServiceServer) CreateGame(context.Context, *CreateGa
 }
 func (UnimplementedCallbreakServiceServer) GameStream(grpc.BidiStreamingServer[GameEvent, ServerEvent]) error {
 	return status.Errorf(codes.Unimplemented, "method GameStream not implemented")
+}
+func (UnimplementedCallbreakServiceServer) SendEvent(context.Context, *GameEvent) (*Ack, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendEvent not implemented")
+}
+func (UnimplementedCallbreakServiceServer) ReceiveEvents(*SubscribeRequest, grpc.ServerStreamingServer[ServerEvent]) error {
+	return status.Errorf(codes.Unimplemented, "method ReceiveEvents not implemented")
 }
 func (UnimplementedCallbreakServiceServer) mustEmbedUnimplementedCallbreakServiceServer() {}
 func (UnimplementedCallbreakServiceServer) testEmbeddedByValue()                          {}
@@ -198,6 +239,35 @@ func _CallbreakService_GameStream_Handler(srv interface{}, stream grpc.ServerStr
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type CallbreakService_GameStreamServer = grpc.BidiStreamingServer[GameEvent, ServerEvent]
 
+func _CallbreakService_SendEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GameEvent)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CallbreakServiceServer).SendEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CallbreakService_SendEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CallbreakServiceServer).SendEvent(ctx, req.(*GameEvent))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CallbreakService_ReceiveEvents_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(SubscribeRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(CallbreakServiceServer).ReceiveEvents(m, &grpc.GenericServerStream[SubscribeRequest, ServerEvent]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type CallbreakService_ReceiveEventsServer = grpc.ServerStreamingServer[ServerEvent]
+
 // CallbreakService_ServiceDesc is the grpc.ServiceDesc for CallbreakService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -217,6 +287,10 @@ var CallbreakService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "CreateGame",
 			Handler:    _CallbreakService_CreateGame_Handler,
 		},
+		{
+			MethodName: "SendEvent",
+			Handler:    _CallbreakService_SendEvent_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
@@ -224,6 +298,11 @@ var CallbreakService_ServiceDesc = grpc.ServiceDesc{
 			Handler:       _CallbreakService_GameStream_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
+		},
+		{
+			StreamName:    "ReceiveEvents",
+			Handler:       _CallbreakService_ReceiveEvents_Handler,
+			ServerStreams: true,
 		},
 	},
 	Metadata: "callbreak.proto",

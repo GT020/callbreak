@@ -47,28 +47,12 @@ const CreateGameRequest$json = {
   '1': 'CreateGameRequest',
   '2': [
     {'1': 'game_id', '3': 1, '4': 1, '5': 9, '10': 'gameId'},
-    {'1': 'jwt_token', '3': 2, '4': 1, '5': 9, '10': 'jwtToken'},
   ],
 };
 
 /// Descriptor for `CreateGameRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createGameRequestDescriptor = $convert.base64Decode(
-    'ChFDcmVhdGVHYW1lUmVxdWVzdBIXCgdnYW1lX2lkGAEgASgJUgZnYW1lSWQSGwoJand0X3Rva2'
-    'VuGAIgASgJUghqd3RUb2tlbg==');
-
-@$core.Deprecated('Use authResponseDescriptor instead')
-const AuthResponse$json = {
-  '1': 'AuthResponse',
-  '2': [
-    {'1': 'jwt_token', '3': 1, '4': 1, '5': 9, '10': 'jwtToken'},
-    {'1': 'message', '3': 2, '4': 1, '5': 9, '10': 'message'},
-  ],
-};
-
-/// Descriptor for `AuthResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List authResponseDescriptor = $convert.base64Decode(
-    'CgxBdXRoUmVzcG9uc2USGwoJand0X3Rva2VuGAEgASgJUghqd3RUb2tlbhIYCgdtZXNzYWdlGA'
-    'IgASgJUgdtZXNzYWdl');
+    'ChFDcmVhdGVHYW1lUmVxdWVzdBIXCgdnYW1lX2lkGAEgASgJUgZnYW1lSWQ=');
 
 @$core.Deprecated('Use gameResponseDescriptor instead')
 const GameResponse$json = {
@@ -82,14 +66,49 @@ const GameResponse$json = {
 final $typed_data.Uint8List gameResponseDescriptor = $convert.base64Decode(
     'CgxHYW1lUmVzcG9uc2USGAoHbWVzc2FnZRgBIAEoCVIHbWVzc2FnZQ==');
 
+@$core.Deprecated('Use authResponseDescriptor instead')
+const AuthResponse$json = {
+  '1': 'AuthResponse',
+  '2': [
+    {'1': 'message', '3': 1, '4': 1, '5': 9, '10': 'message'},
+  ],
+};
+
+/// Descriptor for `AuthResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List authResponseDescriptor = $convert.base64Decode(
+    'CgxBdXRoUmVzcG9uc2USGAoHbWVzc2FnZRgBIAEoCVIHbWVzc2FnZQ==');
+
+@$core.Deprecated('Use ackDescriptor instead')
+const Ack$json = {
+  '1': 'Ack',
+  '2': [
+    {'1': 'message', '3': 1, '4': 1, '5': 9, '10': 'message'},
+  ],
+};
+
+/// Descriptor for `Ack`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List ackDescriptor = $convert.base64Decode(
+    'CgNBY2sSGAoHbWVzc2FnZRgBIAEoCVIHbWVzc2FnZQ==');
+
+@$core.Deprecated('Use subscribeRequestDescriptor instead')
+const SubscribeRequest$json = {
+  '1': 'SubscribeRequest',
+  '2': [
+    {'1': 'game_id', '3': 1, '4': 1, '5': 9, '10': 'gameId'},
+  ],
+};
+
+/// Descriptor for `SubscribeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List subscribeRequestDescriptor = $convert.base64Decode(
+    'ChBTdWJzY3JpYmVSZXF1ZXN0EhcKB2dhbWVfaWQYASABKAlSBmdhbWVJZA==');
+
 @$core.Deprecated('Use gameEventDescriptor instead')
 const GameEvent$json = {
   '1': 'GameEvent',
   '2': [
-    {'1': 'jwt_token', '3': 1, '4': 1, '5': 9, '10': 'jwtToken'},
-    {'1': 'game_id', '3': 2, '4': 1, '5': 9, '10': 'gameId'},
-    {'1': 'join', '3': 3, '4': 1, '5': 11, '6': '.callbreak.Join', '9': 0, '10': 'join'},
-    {'1': 'play', '3': 4, '4': 1, '5': 11, '6': '.callbreak.Play', '9': 0, '10': 'play'},
+    {'1': 'game_id', '3': 1, '4': 1, '5': 9, '10': 'gameId'},
+    {'1': 'join', '3': 2, '4': 1, '5': 11, '6': '.callbreak.Join', '9': 0, '10': 'join'},
+    {'1': 'play', '3': 3, '4': 1, '5': 11, '6': '.callbreak.Play', '9': 0, '10': 'play'},
   ],
   '8': [
     {'1': 'payload'},
@@ -98,9 +117,9 @@ const GameEvent$json = {
 
 /// Descriptor for `GameEvent`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List gameEventDescriptor = $convert.base64Decode(
-    'CglHYW1lRXZlbnQSGwoJand0X3Rva2VuGAEgASgJUghqd3RUb2tlbhIXCgdnYW1lX2lkGAIgAS'
-    'gJUgZnYW1lSWQSJQoEam9pbhgDIAEoCzIPLmNhbGxicmVhay5Kb2luSABSBGpvaW4SJQoEcGxh'
-    'eRgEIAEoCzIPLmNhbGxicmVhay5QbGF5SABSBHBsYXlCCQoHcGF5bG9hZA==');
+    'CglHYW1lRXZlbnQSFwoHZ2FtZV9pZBgBIAEoCVIGZ2FtZUlkEiUKBGpvaW4YAiABKAsyDy5jYW'
+    'xsYnJlYWsuSm9pbkgAUgRqb2luEiUKBHBsYXkYAyABKAsyDy5jYWxsYnJlYWsuUGxheUgAUgRw'
+    'bGF5QgkKB3BheWxvYWQ=');
 
 @$core.Deprecated('Use joinDescriptor instead')
 const Join$json = {
